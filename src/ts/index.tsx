@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Index: React.FC = () => {
   const [test, setTest] = React.useState(1000);
-  const clickButton = () => {
+  const clickButton = (): void => {
     setTest(test + 20);
   };
 
