@@ -8,8 +8,7 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
     entry: {
       // htmlが増える毎にここに追記
       // htmlページ名:そのhtmlの親となるtsファイル
-      index: './src/pages/index.ts',
-      'sample/index': './src/pages/sample/index.ts',
+      index: './src/entry.tsx',
     },
     output: {
       filename: `./js/${outputFile}.js`,
@@ -29,12 +28,12 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
       rules: [
         {
           enforce: 'pre',
-          test: /\.(ts|js)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           use: 'eslint-loader',
           exclude: /node_modules/,
         },
         {
-          test: /\.(ts|js)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           // tsからjsの変換はbabel-loaderで行う
           // 型チェックはForkTsCheckerWebpackPluginで行う
           use: 'babel-loader',
@@ -108,7 +107,7 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
         '@scss': path.resolve(__dirname, 'src/scss'),
         '@assets': path.resolve(__dirname, 'src/assets'),
       },
-      extensions: ['.ts', '.js'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
   };
 };

@@ -1,10 +1,10 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
-const commonConfig = require('./webpack.common');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const commonConfig = require('./webpack.common');
 
 const outputFile = '[name].[chunkhash]';
 const assetFile = '[name].[contenthash]';
@@ -16,16 +16,20 @@ module.exports = (env) => {
   // 指定されていない場合は.env.productionを使用する
   const envFilePath = env ? `./env/.env.${env.file}` : './env/.env.production';
 
-  // webpack.common.jsのentryで追加したhtmlファイルを動的に生成する。
-  const createHtmlPlugins = (entry) => {
-    // 最初にdistディレクトリを空にする
-    const htmpPlugins = [new CleanWebpackPlugin()];
-    Object.keys(entry).forEach((key) => {
-      htmpPlugins.push(
+  return webpackMerge(
+    commonConfig({
+      outputFile,
+      assetFile,
+      envFilePath,
+      assetPath,
+    }),
+    {
+      mode: 'production',
+      plugins: [
         new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, `./src/pages/${key}.html`),
+          template: path.resolve(__dirname, './src/public/index.html'),
           // 出力されるファイル名
-          filename: `./pages/${key}.html`,
+          filename: 'index.html',
           // headにjsファイルを入れたい場合はheadを指定
           inject: 'body',
           minify: {
@@ -37,19 +41,9 @@ module.exports = (env) => {
             useShortDoctype: true,
           },
           // 読み込むjsファイルを指定
-          chunks: [key],
-        })
-      );
-    });
-    return htmpPlugins;
-  };
-  return webpackMerge(
-    commonConfig({ outputFile, assetFile, envFilePath, assetPath }),
-    {
-      mode: 'production',
-      plugins: createHtmlPlugins(
-        commonConfig({ outputFile, assetFile, envFilePath, assetPath }).entry
-      ),
+        }),
+        new CleanWebpackPlugin(),
+      ],
       optimization: {
         minimizer: [
           // javascriptの最適化
