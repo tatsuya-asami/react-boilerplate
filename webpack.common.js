@@ -8,7 +8,7 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
     entry: {
       // htmlが増える毎にここに追記
       // htmlページ名:そのhtmlの親となるtsファイル
-      index: './src/entry.tsx',
+      index: './src/Index.tsx',
     },
     output: {
       filename: `./js/${outputFile}.js`,

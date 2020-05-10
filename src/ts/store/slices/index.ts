@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
+import { connectRouter, RouterState } from 'connected-react-router';
+import { History, LocationState } from 'history';
 import { sampleSlice } from './sample';
 
-export const rootReducer = combineReducers({
-  sampleSlice: sampleSlice.reducer,
-});
-
-export type RootState = ReturnType<typeof rootReducer>;
+export const rootReducer = (history: History): Reducer =>
+  combineReducers({
+    router: connectRouter(history) as Reducer<RouterState<LocationState>>,
+    sampleSlice: sampleSlice.reducer,
+  });
