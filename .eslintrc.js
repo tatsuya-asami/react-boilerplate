@@ -2,7 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -33,4 +32,15 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-console': ['warn', { allow: ['info', 'warn', 'error'] }],
   },
+  overrides: [
+    {
+      files: ['**/*.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/camelcase': 'off',
+        'global-require': 'off',
+      },
+    },
+  ],
 };
