@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from '@ts/store/slices/sample';
-import { RootState } from './store/slices';
+import { RootState } from '@ts/store';
 
-export const Index: React.FC = () => {
+export const Home: React.FC = () => {
   const [test, setTest] = React.useState(1000);
   const clickButton = (): void => {
     setTest(test + 20);
