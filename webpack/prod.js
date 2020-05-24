@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const commonConfig = require('./webpack.common');
+const commonConfig = require('./common');
 
 const outputFile = '[name].[chunkhash]';
 const assetFile = '[name].[contenthash]';
@@ -27,7 +27,7 @@ module.exports = (env) => {
       mode: 'production',
       plugins: [
         new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, './src/public/index.html'),
+          template: path.resolve(__dirname, '../src/public/index.html'),
           // 出力されるファイル名
           filename: 'index.html',
           // headにjsファイルを入れたい場合はheadを指定

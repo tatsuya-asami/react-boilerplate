@@ -1,7 +1,7 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const commonConfig = require('./webpack.common');
+const commonConfig = require('./common');
 
 const outputFile = '[name]';
 const assetFile = '[name]';
@@ -24,7 +24,7 @@ module.exports = (env) => {
       devtool: 'inline-source-map',
       plugins: [
         new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, './src/public/index.html'),
+          template: path.resolve(__dirname, '../src/public/index.html'),
           // 出力されるファイル名
           filename: 'index.html',
           // headにjsファイルを入れたい場合はheadを指定
